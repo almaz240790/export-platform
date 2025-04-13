@@ -8,38 +8,50 @@ generator client {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  phone         String?   @unique
-  password      String
-  name          String?
-  role          Role      @default(CLIENT)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  companyId     String?
-  company       Company?  @relation("CompanyEmployee", fields: [companyId], references: [id])
-  messages      Message[] @relation("UserMessages")
-  chats         Chat[]    @relation("UserChats")
+  id              String    @id @default(cuid())
+  name            String?
+  email           String?   @unique
+  phone           String?   @unique
+  emailVerified   DateTime?
+  image           String?
+  hashedPassword  String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  resetCode       String?
+  resetCodeExpires DateTime?
+  role            Role      @default(CLIENT)
+  companyId       String?
+  company         Company?  @relation("CompanyEmployee", fields: [companyId], references: [id])
+  messages        Message[] @relation("UserMessages")
+  chats           Chat[]    @relation("UserChats")
+
+  @@map("users")
 }
 
 model Company {
-  id             String    @id @default(cuid())
+  id             String   @id @default(cuid())
   name           String
-  logo           String
-  description    String
-  location       String
-  rating         Float     @default(0)
-  deals          Int       @default(0)
-  yearFounded    Int
-  specialization String[]
-  languages      String[]
+  description    String?
+  address        String?
+  phone          String?
+  email          String?
+  website        String?
+  inn            String?  @unique
+  kpp            String?
+  ogrn           String?
+  bankAccount    String?
+  bankName       String?
+  bankBik        String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
   deliveryTime   String
-  employees      User[]    @relation("CompanyEmployee")
-  images         Image[]   @relation("CompanyImages")
-  reviews        Review[]  @relation("CompanyReviews")
+  employees      User[]   @relation("CompanyEmployee")
+  images         Image[]  @relation("CompanyImages")
+  messages       Message[] @relation("CompanyMessages")
   chats          Chat[]    @relation("CompanyChats")
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  reviews        Review[]  @relation("CompanyReviews")
+
+  @@map("companies")
 }
 
 model Chat {
@@ -51,6 +63,8 @@ model Chat {
   messages  Message[] @relation("ChatMessages")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+
+  @@map("chats")
 }
 
 model Message {
@@ -58,9 +72,13 @@ model Message {
   text      String
   sender    User     @relation("UserMessages", fields: [senderId], references: [id])
   senderId  String
+  company   Company  @relation("CompanyMessages", fields: [companyId], references: [id])
+  companyId String
   chat      Chat     @relation("ChatMessages", fields: [chatId], references: [id])
   chatId    String
   createdAt DateTime @default(now())
+
+  @@map("messages")
 }
 
 model Image {
@@ -69,6 +87,8 @@ model Image {
   company   Company  @relation("CompanyImages", fields: [companyId], references: [id])
   companyId String
   createdAt DateTime @default(now())
+
+  @@map("images")
 }
 
 model Review {
@@ -78,6 +98,8 @@ model Review {
   company   Company  @relation("CompanyReviews", fields: [companyId], references: [id])
   companyId String
   createdAt DateTime @default(now())
+
+  @@map("reviews")
 }
 
 enum Role {
