@@ -6,7 +6,7 @@ export function OrganizationSchema() {
     '@type': 'Organization',
     name: 'Export Platform',
     url: 'https://export-platform.vercel.app',
-    logo: 'https://export-platform.vercel.app/logo.png',
+    logo: 'https://export-platform.vercel.app/images/logo.png',
     sameAs: [
       'https://twitter.com/exportplatform', 
       'https://facebook.com/exportplatform',

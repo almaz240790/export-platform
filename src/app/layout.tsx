@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     siteName: 'Export Platform',
     images: [
       {
-        url: 'https://export-platform.vercel.app/og-image.png',
+        url: 'https://export-platform.vercel.app/images/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Export Platform',
@@ -47,11 +47,11 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Export Platform - B2B платформа для экспорта',
     description: 'Платформа для экспортеров и бизнеса. Найдите надежных партнеров для экспорта товаров и услуг.',
-    images: ['https://export-platform.vercel.app/og-image.png'],
+    images: ['https://export-platform.vercel.app/images/og-image.png'],
   },
   other: {
-    'yandex-verification': 'export-platform-verification',
-    'google-site-verification': 'export-platform-verification',
+    'yandex-verification': 'YA22343842343782783',
+    'google-site-verification': 'G-ABCDEFGHIJ',
   },
 }
 
