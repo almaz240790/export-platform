@@ -1,0 +1,9 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0F52BA"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M400 180H800V450H400V180ZM440 220V410H760V220H440Z" fill="white"/>
+  <path d="M327 347H382L390 365H345L327 347Z" fill="white"/>
+  <path d="M873 347H818L810 365H855L873 347Z" fill="white"/>
+  <path d="M540 300L600 260L660 300L600 340L540 300Z" fill="white"/>
+  <text x="600" y="500" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="white" text-anchor="middle">EXPORT PLATFORM</text>
+  <text x="600" y="550" font-family="Arial, sans-serif" font-size="32" fill="white" text-anchor="middle">B2B платформа для экспорта</text>
+</svg> 
