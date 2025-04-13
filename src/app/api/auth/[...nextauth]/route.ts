@@ -1,11 +1,12 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import NextAuth from "next-auth";
+import { AuthOptions } from 'next-auth';
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from '@/lib/prisma';
 
-const handler = NextAuth({
+export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
@@ -20,15 +21,21 @@ const handler = NextAuth({
         }
 
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email }
+          where: {
+            email: credentials.email
+          }
         });
 
-        if (!user) {
+        if (!user || !user.hashedPassword) {
           return null;
         }
 
-        // В реальном приложении здесь должна быть проверка пароля
-        if (credentials.password !== user.password) {
+        const isPasswordValid = await bcrypt.compare(
+          credentials.password,
+          user.hashedPassword
+        );
+
+        if (!isPasswordValid) {
           return null;
         }
 
@@ -36,6 +43,7 @@ const handler = NextAuth({
           id: user.id,
           email: user.email,
           name: user.name,
+          role: user.role
         };
       }
     })
@@ -48,7 +56,22 @@ const handler = NextAuth({
   pages: {
     signIn: '/login',
     error: '/login',
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = user.role;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session?.user) {
+        session.user.role = token.role;
+      }
+      return session;
+    }
   }
-});
+};
 
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST }; 
