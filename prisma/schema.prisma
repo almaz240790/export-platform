@@ -16,7 +16,8 @@ model User {
   role          Role      @default(CLIENT)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  company       Company?  @relation("CompanyEmployee")
+  companyId     String?
+  company       Company?  @relation("CompanyEmployee", fields: [companyId], references: [id])
   messages      Message[] @relation("UserMessages")
   chats         Chat[]    @relation("UserChats")
 }
