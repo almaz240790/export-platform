@@ -7,12 +7,18 @@ const nextConfig = {
         hostname: 'images.unsplash.com',
       },
       {
-        protocol: 'http',
-        hostname: 'localhost',
+        protocol: 'https',
+        hostname: '**.vercel.app',
       }
-    ],
-    domains: ['localhost']
+    ]
   },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  eslint: {
+    ignoreDuringBuilds: false,
+  },
+  swcMinify: true,
 }
 
 module.exports = nextConfig 
