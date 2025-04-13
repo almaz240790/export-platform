@@ -1,11 +1,21 @@
 import { Server } from 'socket.io';
 import { NextRequest } from 'next/server';
 import { PrismaClient } from '@prisma/client';
+import { createServer } from 'http';
 
 const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest) {
-  const io = new Server(req);
+  // Create HTTP server
+  const httpServer = createServer();
+  
+  // Initialize Socket.IO with the HTTP server
+  const io = new Server(httpServer, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    }
+  });
 
   io.on('connection', (socket) => {
     console.log('Client connected');
@@ -38,7 +48,15 @@ export async function GET(req: NextRequest) {
     });
   });
 
+  // Start the server
+  const port = process.env.SOCKET_PORT || 3001;
+  httpServer.listen(port);
+
   return new Response('Socket server is running', {
     status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST',
+    },
   });
 } 
