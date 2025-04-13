@@ -21,7 +21,7 @@ export default function ForgotPassword() {
     setStatus({ type: null, message: '' });
 
     try {
-      const response = await fetch('/api/auth/forgot-password', {
+      await fetch('/api/auth/forgot-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,16 +31,6 @@ export default function ForgotPassword() {
           phone: resetType === 'phone' ? formData.phone : undefined,
         }),
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setStatus({
-          type: 'error',
-          message: data.error || 'Что-то пошло не так. Попробуйте позже.',
-        });
-        return;
-      }
 
       setStatus({
         type: 'success',
@@ -67,6 +57,7 @@ export default function ForgotPassword() {
 
           <div className="flex gap-4 mb-8">
             <button
+              type="button"
               onClick={() => setResetType('email')}
               className={`flex-1 py-2 px-4 rounded-lg text-center ${
                 resetType === 'email'
@@ -77,6 +68,7 @@ export default function ForgotPassword() {
               Email
             </button>
             <button
+              type="button"
               onClick={() => setResetType('phone')}
               className={`flex-1 py-2 px-4 rounded-lg text-center ${
                 resetType === 'phone'
