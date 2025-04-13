@@ -1,0 +1,86 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  phone         String?   @unique
+  password      String
+  name          String?
+  role          Role      @default(CLIENT)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  company       Company?  @relation("CompanyEmployee")
+  messages      Message[] @relation("UserMessages")
+  chats         Chat[]    @relation("UserChats")
+}
+
+model Company {
+  id             String    @id @default(cuid())
+  name           String
+  logo           String
+  description    String
+  location       String
+  rating         Float     @default(0)
+  deals          Int       @default(0)
+  yearFounded    Int
+  specialization String[]
+  languages      String[]
+  deliveryTime   String
+  employees      User[]    @relation("CompanyEmployee")
+  images         Image[]   @relation("CompanyImages")
+  reviews        Review[]  @relation("CompanyReviews")
+  chats          Chat[]    @relation("CompanyChats")
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Chat {
+  id        String    @id @default(cuid())
+  user      User      @relation("UserChats", fields: [userId], references: [id])
+  userId    String
+  company   Company   @relation("CompanyChats", fields: [companyId], references: [id])
+  companyId String
+  messages  Message[] @relation("ChatMessages")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  text      String
+  sender    User     @relation("UserMessages", fields: [senderId], references: [id])
+  senderId  String
+  chat      Chat     @relation("ChatMessages", fields: [chatId], references: [id])
+  chatId    String
+  createdAt DateTime @default(now())
+}
+
+model Image {
+  id        String   @id @default(cuid())
+  url       String
+  company   Company  @relation("CompanyImages", fields: [companyId], references: [id])
+  companyId String
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int
+  text      String
+  company   Company  @relation("CompanyReviews", fields: [companyId], references: [id])
+  companyId String
+  createdAt DateTime @default(now())
+}
+
+enum Role {
+  ADMIN
+  COMPANY
+  CLIENT
+} 
