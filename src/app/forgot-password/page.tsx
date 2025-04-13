@@ -11,10 +11,47 @@ export default function ForgotPassword() {
     email: '',
     phone: '',
   });
+  const [status, setStatus] = useState<{
+    type: 'error' | 'success' | null;
+    message: string;
+  }>({ type: null, message: '' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Reset password request:', formData);
+    setStatus({ type: null, message: '' });
+
+    try {
+      const response = await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: resetType === 'email' ? formData.email : undefined,
+          phone: resetType === 'phone' ? formData.phone : undefined,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setStatus({
+          type: 'error',
+          message: data.error || 'Что-то пошло не так. Попробуйте позже.',
+        });
+        return;
+      }
+
+      setStatus({
+        type: 'success',
+        message: 'Инструкции по восстановлению пароля отправлены',
+      });
+    } catch (error) {
+      setStatus({
+        type: 'error',
+        message: 'Произошла ошибка при отправке запроса',
+      });
+    }
   };
 
   return (
@@ -50,6 +87,16 @@ export default function ForgotPassword() {
               Телефон
             </button>
           </div>
+
+          {status.type && (
+            <div
+              className={`mb-4 p-4 rounded-lg ${
+                status.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
+              }`}
+            >
+              {status.message}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {resetType === 'email' ? (
