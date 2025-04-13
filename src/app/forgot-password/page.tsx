@@ -5,7 +5,7 @@ import Link from 'next/link';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
-export default function ForgotPassword() {
+const ForgotPassword = () => {
   const [resetType, setResetType] = useState<'email' | 'phone'>('email');
   const [formData, setFormData] = useState({
     email: '',
@@ -143,4 +143,6 @@ export default function ForgotPassword() {
       </div>
     </main>
   );
-} 
+};
+
+export default ForgotPassword; 
