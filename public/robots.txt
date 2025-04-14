@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://exportplatform.vercel.app/sitemap.xml 
+# Disallow admin and API routes
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://export-platform.vercel.app/sitemap.xml 
