@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://export-platform.vercel.app/sitemap.xml 
+Sitemap: https://exportplatform.vercel.app/sitemap.xml 

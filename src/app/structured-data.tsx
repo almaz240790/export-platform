@@ -5,8 +5,8 @@ export function OrganizationSchema() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Export Platform',
-    url: 'https://export-platform.vercel.app',
-    logo: 'https://export-platform.vercel.app/images/logo.png',
+    url: 'https://exportplatform.vercel.app',
+    logo: 'https://exportplatform.vercel.app/images/logo.png',
     sameAs: [
       'https://twitter.com/exportplatform', 
       'https://facebook.com/exportplatform',
@@ -35,10 +35,10 @@ export function WebsiteSchema() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Export Platform',
-    url: 'https://export-platform.vercel.app',
+    url: 'https://exportplatform.vercel.app',
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://export-platform.vercel.app/search?q={search_term_string}',
+      target: 'https://exportplatform.vercel.app/search?q={search_term_string}',
       'query-input': 'required name=search_term_string'
     }
   };
