@@ -1,5 +1,5 @@
 import { Navbar } from '@/components/layout/Navbar';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import Image from 'next/image';
 
 export default function ExporterPage({ params }: { params: { id: string } }) {

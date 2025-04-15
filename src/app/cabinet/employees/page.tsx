@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { Plus, Trash2, Mail, Phone, Shield } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
 import { toast } from 'sonner';
 
 interface Employee {

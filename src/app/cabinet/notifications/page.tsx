@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import { toast } from 'sonner';
 import { Bell, Check, Eye, X, MessageSquare, Star, ShoppingBag } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
