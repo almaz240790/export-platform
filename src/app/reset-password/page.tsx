@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 'use client';
 
 import { useState, Suspense } from 'react';
@@ -162,4 +164,4 @@ export default function ResetPassword() {
       <ResetPasswordForm />
     </Suspense>
   );
-} 
+}
