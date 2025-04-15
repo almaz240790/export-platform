@@ -1,11 +1,11 @@
 'use client';
 
-export const dynamic = 'force-dynamic'
-export const fetchCache = 'force-no-store'
-
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Briefcase, MessageSquare, File, Settings } from 'lucide-react';
+
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 
 export default function CabinetPage() {
   const { data: session } = useSession();

@@ -1,11 +1,11 @@
 'use client';
 
-export const dynamic = 'force-dynamic'
-export const fetchCache = 'force-no-store'
-
 import { useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 
 function ResetPasswordForm() {
   const searchParams = useSearchParams();
