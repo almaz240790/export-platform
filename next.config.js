@@ -2,13 +2,12 @@
 const nextConfig = {
   images: {
     domains: ['images.unsplash.com'],
-    unoptimized: true
   },
   typescript: {
-    ignoreBuildErrors: true
+    ignoreBuildErrors: true,
   },
   eslint: {
-    ignoreDuringBuilds: true
+    ignoreDuringBuilds: true,
   }
 }
 

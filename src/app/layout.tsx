@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { OrganizationSchema, WebsiteSchema } from './structured-data'
+import { Providers } from './providers'
 
 const inter = Inter({ 
   subsets: ['latin', 'cyrillic'],
@@ -45,9 +46,11 @@ export default function RootLayout({
         <link rel="canonical" href="https://export-platform.vercel.app" />
       </head>
       <body className={`${inter.className} antialiased`}>
-        <OrganizationSchema />
-        <WebsiteSchema />
-        {children}
+        <Providers>
+          <OrganizationSchema />
+          <WebsiteSchema />
+          {children}
+        </Providers>
       </body>
     </html>
   )

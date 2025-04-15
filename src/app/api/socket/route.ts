@@ -1,20 +1,20 @@
 import { Server } from 'socket.io';
 import { NextRequest } from 'next/server';
 import { PrismaClient } from '@prisma/client';
-import { createServer } from 'http';
 
 const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest) {
-  // Create HTTP server
-  const httpServer = createServer();
-  
-  // Initialize Socket.IO with the HTTP server
-  const io = new Server(httpServer, {
+  if (process.env.NODE_ENV === 'production') {
+    return new Response('Socket server is not available in production', { status: 200 });
+  }
+
+  const io = new Server({
     cors: {
       origin: "*",
       methods: ["GET", "POST"]
-    }
+    },
+    path: '/api/socket'
   });
 
   io.on('connection', (socket) => {
@@ -26,7 +26,6 @@ export async function GET(req: NextRequest) {
 
     socket.on('send-message', async (data: { chatId: string; text: string; senderId: string }) => {
       try {
-        // Получаем chat для определения companyId
         const chat = await prisma.chat.findUnique({
           where: { id: data.chatId },
           select: { companyId: true }
@@ -59,10 +58,6 @@ export async function GET(req: NextRequest) {
       console.log('Client disconnected');
     });
   });
-
-  // Start the server
-  const port = process.env.SOCKET_PORT || 3001;
-  httpServer.listen(port);
 
   return new Response('Socket server is running', {
     status: 200,
