@@ -1,7 +1,7 @@
+'use client';
+
 export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'
-
-'use client';
 
 import { useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
