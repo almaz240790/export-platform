@@ -2,7 +2,7 @@
 const nextConfig = {
   images: {
     domains: ['images.unsplash.com'],
-    unoptimized: process.env.NODE_ENV === 'production'
+    unoptimized: true
   },
   typescript: {
     ignoreBuildErrors: true
