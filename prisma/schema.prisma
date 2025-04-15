@@ -24,6 +24,7 @@ model User {
   company         Company?  @relation("CompanyEmployee", fields: [companyId], references: [id])
   messages        Message[] @relation("UserMessages")
   chats           Chat[]    @relation("UserChats")
+  notifications   Notification[]
 
   @@map("users")
 }
@@ -50,6 +51,9 @@ model Company {
   messages       Message[] @relation("CompanyMessages")
   chats          Chat[]    @relation("CompanyChats")
   reviews        Review[]  @relation("CompanyReviews")
+  documents      Document[]
+  categoryId     String?
+  category       Category? @relation(fields: [categoryId], references: [id])
 
   @@map("companies")
 }
@@ -87,6 +91,7 @@ model Image {
   company   Company  @relation("CompanyImages", fields: [companyId], references: [id])
   companyId String
   createdAt DateTime @default(now())
+  isLogo    Boolean  @default(false)
 
   @@map("images")
 }
@@ -95,11 +100,52 @@ model Review {
   id        String   @id @default(cuid())
   rating    Int
   text      String
+  response  String?
   company   Company  @relation("CompanyReviews", fields: [companyId], references: [id])
   companyId String
   createdAt DateTime @default(now())
 
   @@map("reviews")
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  companies   Company[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  companyId   String?
+
+  @@map("categories")
+}
+
+model Document {
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  type      String
+  size      Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  companyId String?
+  company   Company? @relation(fields: [companyId], references: [id])
+
+  @@map("documents")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  message   String
+  type      String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("notifications")
 }
 
 enum Role {

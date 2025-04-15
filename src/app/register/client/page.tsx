@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Navbar } from '@/components/layout/Navbar';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 export default function ClientRegistration() {

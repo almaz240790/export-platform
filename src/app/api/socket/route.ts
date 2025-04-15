@@ -26,11 +26,23 @@ export async function GET(req: NextRequest) {
 
     socket.on('send-message', async (data: { chatId: string; text: string; senderId: string }) => {
       try {
+        // Получаем chat для определения companyId
+        const chat = await prisma.chat.findUnique({
+          where: { id: data.chatId },
+          select: { companyId: true }
+        });
+        
+        if (!chat) {
+          console.error('Chat not found:', data.chatId);
+          return;
+        }
+        
         const message = await prisma.message.create({
           data: {
             text: data.text,
             senderId: data.senderId,
             chatId: data.chatId,
+            companyId: chat.companyId,
           },
           include: {
             sender: true,

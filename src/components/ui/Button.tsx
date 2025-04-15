@@ -4,8 +4,8 @@ import { ButtonHTMLAttributes, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'gradient';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'gradient' | 'destructive';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon';
   children: ReactNode;
   icon?: ReactNode;
   iconPosition?: 'left' | 'right';
@@ -32,7 +32,8 @@ export const Button = ({
     secondary: 'bg-secondary text-white hover:bg-secondary/90 focus:ring-secondary/50',
     outline: 'border-2 border-primary text-primary hover:bg-primary/10 focus:ring-primary/50',
     ghost: 'text-gray-700 hover:bg-gray-100 focus:ring-gray-500/50',
-    gradient: 'bg-gradient-to-r from-primary to-secondary text-white hover:opacity-90 focus:ring-primary/50'
+    gradient: 'bg-gradient-to-r from-primary to-secondary text-white hover:opacity-90 focus:ring-primary/50',
+    destructive: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500/50'
   };
 
   const sizes = {
@@ -40,7 +41,8 @@ export const Button = ({
     sm: 'px-3 py-1.5 text-sm',
     md: 'px-4 py-2 text-base',
     lg: 'px-6 py-3 text-lg',
-    xl: 'px-8 py-4 text-xl'
+    xl: 'px-8 py-4 text-xl',
+    icon: 'p-2 aspect-square'
   };
 
   const widthClass = fullWidth ? 'w-full' : '';
